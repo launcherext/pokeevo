@@ -7,9 +7,9 @@ export default function ExplainerSection() {
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div className="pokemon-card p-8 shadow-2xl font-sans">
+    <div className="pokemon-card holo-texture p-8 shadow-2xl font-sans">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 relative z-10">
         <div>
           <h2 className="text-2xl font-bold text-pokemon-yellow mb-2 tracking-tight flex items-center gap-3">
             <span className="text-3xl">⚡</span>
@@ -28,10 +28,10 @@ export default function ExplainerSection() {
       </div>
 
       {/* Next Evolution Preview */}
-      <div className="mb-8">
+      <div className="mb-8 relative z-10">
         <h3 className="text-lg font-semibold text-pokemon-lightBlue mb-4">Next Evolution Preview</h3>
-        <div className="bg-pokemon-darker/90 border border-pokemon-blue/30 rounded-xl p-6 inline-block">
-          <div className="bg-pokemon-dark/80 rounded-lg p-4 border border-pokemon-blue/20">
+        <div className="holo-inner p-6 inline-block">
+          <div className="bg-pokemon-dark/60 rounded-lg p-4 border border-white/10 relative z-10">
             <img
               src="/pikachu-next-evolution.png"
               alt="Pikachu - Next Evolution"
@@ -49,7 +49,7 @@ export default function ExplainerSection() {
       </div>
 
       {/* Evolution Rewards Banner */}
-      <div className="bg-gradient-to-r from-pokemon-yellow/20 via-pokemon-electric/20 to-pokemon-yellow/20 border-2 border-pokemon-yellow/40 rounded-xl p-6 mb-8">
+      <div className="holo-inner p-6 mb-8 relative z-10">
         <div className="flex flex-col md:flex-row items-center gap-6">
           <div className="text-5xl">🎁</div>
           <div className="flex-1 text-center md:text-left">
@@ -60,7 +60,7 @@ export default function ExplainerSection() {
               Each evolution's rewards grow as the system compounds!
             </p>
           </div>
-          <div className="flex flex-col items-center gap-2 bg-pokemon-darker/60 rounded-lg p-4 border border-pokemon-yellow/30">
+          <div className="flex flex-col items-center gap-2 bg-pokemon-darker/60 rounded-lg p-4 border border-white/10 relative z-10">
             <div className="text-sm text-pokemon-lightBlue/80">Airdrop Formula</div>
             <div className="text-lg font-mono text-pokemon-yellow">Gen N → Gen N+1</div>
             <div className="text-xs text-pokemon-electric">Rewards compound each cycle</div>
@@ -69,35 +69,35 @@ export default function ExplainerSection() {
       </div>
 
       {/* Quick Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-pokemon-darker/80 border border-pokemon-blue/20 rounded-xl p-5">
-          <div className="text-2xl mb-3">🥚</div>
-          <div className="font-bold text-base mb-2 text-pokemon-yellow">New Token Born</div>
-          <div className="text-xs text-pokemon-lightBlue/80">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 relative z-10">
+        <div className="holo-inner p-5">
+          <div className="text-2xl mb-3 relative z-10">🥚</div>
+          <div className="font-bold text-base mb-2 text-pokemon-yellow relative z-10">New Token Born</div>
+          <div className="text-xs text-pokemon-lightBlue/80 relative z-10">
             Each evolution spawns a completely new token on Pump.fun.
           </div>
         </div>
 
-        <div className="bg-pokemon-darker/80 border border-pokemon-blue/20 rounded-xl p-5">
-          <div className="text-2xl mb-3">📈</div>
-          <div className="font-bold text-base mb-2 text-pokemon-yellow">Growing Rewards</div>
-          <div className="text-xs text-pokemon-lightBlue/80">
+        <div className="holo-inner p-5">
+          <div className="text-2xl mb-3 relative z-10">📈</div>
+          <div className="font-bold text-base mb-2 text-pokemon-yellow relative z-10">Growing Rewards</div>
+          <div className="text-xs text-pokemon-lightBlue/80 relative z-10">
             Each airdrop is bigger than the last as SOL compounds through evolutions.
           </div>
         </div>
 
-        <div className="bg-pokemon-darker/80 border border-pokemon-blue/20 rounded-xl p-5">
-          <div className="text-2xl mb-3">⚡</div>
-          <div className="font-bold text-base mb-2 text-pokemon-yellow">Atomic Evolution</div>
-          <div className="text-xs text-pokemon-lightBlue/80">
+        <div className="holo-inner p-5">
+          <div className="text-2xl mb-3 relative z-10">⚡</div>
+          <div className="font-bold text-base mb-2 text-pokemon-yellow relative z-10">Atomic Evolution</div>
+          <div className="text-xs text-pokemon-lightBlue/80 relative z-10">
             Jito bundles ensure claim, create, and buy happen together atomically.
           </div>
         </div>
 
-        <div className="bg-pokemon-darker/80 border border-pokemon-blue/20 rounded-xl p-5">
-          <div className="text-2xl mb-3">🏆</div>
-          <div className="font-bold text-base mb-2 text-pokemon-yellow">Top 100 Win</div>
-          <div className="text-xs text-pokemon-lightBlue/80">
+        <div className="holo-inner p-5">
+          <div className="text-2xl mb-3 relative z-10">🏆</div>
+          <div className="font-bold text-base mb-2 text-pokemon-yellow relative z-10">Top 100 Win</div>
+          <div className="text-xs text-pokemon-lightBlue/80 relative z-10">
             Be in the top 100 holders when evolution triggers to get airdropped.
           </div>
         </div>

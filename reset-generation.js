@@ -2,10 +2,11 @@ const Redis = require('ioredis');
 require('dotenv').config();
 
 /**
- * Reset Redis generation counter to 0
+ * Reset Redis to fresh evolution state
  */
-async function resetGeneration() {
+async function resetToFresh() {
   const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
+  const genesisToken = process.env.GENESIS_TOKEN_MINT;
   const redis = new Redis(redisUrl);
 
   try {
@@ -13,26 +14,49 @@ async function resetGeneration() {
     await redis.ping();
     console.log('✅ Connected to Redis');
 
-    // Get current generation
+    // Show current state
     const currentGen = await redis.get('generation');
-    console.log(`Current generation: ${currentGen || 'not set'}`);
+    const currentMint = await redis.get('active_mint');
+    const currentPhase = await redis.get('phase');
+    console.log(`\nCurrent state:`);
+    console.log(`  Generation: ${currentGen || 'not set'}`);
+    console.log(`  Active mint: ${currentMint || 'not set'}`);
+    console.log(`  Phase: ${currentPhase || 'not set'}`);
 
-    // Reset to 0
-    await redis.set('generation', '0');
-    console.log('✅ Generation reset to 0');
+    // Reset to fresh state
+    console.log('\nResetting to fresh state...');
 
-    // Verify
+    await redis.set('generation', '1');
+    await redis.set('phase', 'casual');
+    await redis.del('last_update');
+
+    if (genesisToken) {
+      await redis.set('active_mint', genesisToken);
+      console.log(`✅ Active mint set to genesis token: ${genesisToken}`);
+    }
+
+    // Clear old holder data if there was a previous mint
+    if (currentMint) {
+      await redis.del(`holders:${currentMint}`);
+      console.log(`✅ Cleared holders for: ${currentMint}`);
+    }
+
+    // Show new state
     const newGen = await redis.get('generation');
-    console.log(`New generation: ${newGen}`);
+    const newMint = await redis.get('active_mint');
+    const newPhase = await redis.get('phase');
+    console.log(`\nNew state:`);
+    console.log(`  Generation: ${newGen}`);
+    console.log(`  Active mint: ${newMint}`);
+    console.log(`  Phase: ${newPhase}`);
 
-    console.log('\n✅ Redis generation counter has been reset!');
-    console.log('You can now restart your backend to start fresh at generation 1.');
+    console.log('\n✅ Redis reset complete! Restart your backend to apply.');
   } catch (error) {
-    console.error('❌ Error resetting generation:', error);
+    console.error('❌ Error resetting:', error);
   } finally {
     await redis.quit();
     console.log('Disconnected from Redis');
   }
 }
 
-resetGeneration();
+resetToFresh();

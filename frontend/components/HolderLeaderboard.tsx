@@ -144,16 +144,16 @@ export default function HolderLeaderboard({ holders, lastUpdate }: Props) {
 
       {/* Footer stats */}
       {holders.length > 0 && (
-        <div className="mt-4 grid grid-cols-2 gap-4 text-xs">
-          <div className="bg-pokemon-darker/80 rounded-lg p-3 border border-pokemon-yellow/30">
-            <div className="text-pokemon-yellow uppercase tracking-wider mb-1">Champion</div>
-            <div className="text-white font-medium">
+        <div className="mt-4 grid grid-cols-2 gap-4 text-xs relative z-10">
+          <div className="holo-inner p-3">
+            <div className="text-pokemon-yellow uppercase tracking-wider mb-1 relative z-10">Champion</div>
+            <div className="text-white font-medium relative z-10">
               {formatBalance(holders[0]?.balance || 0)} power
             </div>
           </div>
-          <div className="bg-pokemon-darker/80 rounded-lg p-3 border border-pokemon-blue/30">
-            <div className="text-pokemon-lightBlue uppercase tracking-wider mb-1">Trainers</div>
-            <div className="text-white font-medium">
+          <div className="holo-inner p-3">
+            <div className="text-pokemon-lightBlue uppercase tracking-wider mb-1 relative z-10">Trainers</div>
+            <div className="text-white font-medium relative z-10">
               {holders.length} registered
             </div>
           </div>
