@@ -67,7 +67,7 @@ function loadConfig(): Config {
       password: process.env.REDIS_PASSWORD
     },
     websocket: {
-      port: parseInt(process.env.WS_PORT || '8080')
+      port: parseInt(process.env.PORT || process.env.WS_PORT || '8080')
     },
     pump: {
       programId: pumpProgramId,
