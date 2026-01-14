@@ -68,7 +68,7 @@ export default function StatsPanel({ generation, progress, marketCap, lastUpdate
         {stats.map((stat, index) => (
           <motion.div
             key={stat.label}
-            className="bg-pokemon-darker/50 border border-pokemon-blue/20 rounded-xl p-4"
+            className="bg-pokemon-darker/80 border border-pokemon-blue/20 rounded-xl p-4"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
@@ -86,7 +86,7 @@ export default function StatsPanel({ generation, progress, marketCap, lastUpdate
         ))}
 
         {/* Current Pokemon */}
-        <div className="bg-pokemon-darker/50 border border-pokemon-yellow/30 rounded-xl p-4">
+        <div className="bg-pokemon-darker/80 border border-pokemon-yellow/30 rounded-xl p-4">
           <div className="text-pokemon-yellow text-xs uppercase tracking-widest mb-2">Current Form</div>
           <div className="text-lg font-medium text-white flex items-center justify-between">
             <span>{pokemon.name}</span>
@@ -102,7 +102,7 @@ export default function StatsPanel({ generation, progress, marketCap, lastUpdate
         </div>
 
         {/* Phase indicator */}
-        <div className="bg-pokemon-darker/50 border border-pokemon-blue/20 rounded-xl p-4">
+        <div className="bg-pokemon-darker/80 border border-pokemon-blue/20 rounded-xl p-4">
           <div className="text-pokemon-lightBlue text-xs uppercase tracking-widest mb-2">Battle Phase</div>
           <div className="text-sm font-medium">
             {marketCap < 50000 ? (

@@ -1,7 +1,7 @@
 {
-  "name": "chain-reaction-mev-bot",
+  "name": "pikachuchain-bot",
   "version": "1.0.0",
-  "description": "Viral DeFi System - MEV bot for Pump.fun token recycling",
+  "description": "PikachuChain - Pichu to Pikachu to Raichu evolution system on Solana",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",

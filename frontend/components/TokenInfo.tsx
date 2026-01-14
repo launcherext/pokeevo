@@ -64,7 +64,7 @@ export default function TokenInfo({ mint, generation, tokenName: propTokenName, 
         <div>
           <div className="text-pokemon-lightBlue text-xs uppercase tracking-widest mb-2">PokeDex ID (Contract)</div>
           <div
-            className="bg-pokemon-darker/50 border border-pokemon-blue/30 rounded-xl p-4 cursor-pointer hover:bg-pokemon-yellow/5 hover:border-pokemon-yellow/50 transition-all group"
+            className="bg-pokemon-darker/80 border border-pokemon-blue/30 rounded-xl p-4 cursor-pointer hover:bg-pokemon-yellow/5 hover:border-pokemon-yellow/50 transition-all group"
             onClick={copyToClipboard}
           >
             <div className="flex items-center justify-between">

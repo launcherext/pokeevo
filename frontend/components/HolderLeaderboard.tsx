@@ -79,8 +79,8 @@ export default function HolderLeaderboard({ holders, lastUpdate }: Props) {
   }
 
   return (
-    <div className="pokemon-card p-6 shadow-2xl">
-      <div className="flex items-center justify-between mb-4">
+    <div className="pokemon-card holo-texture p-6 shadow-2xl">
+      <div className="flex items-center justify-between mb-4 relative z-10">
         <h2 className="text-xl font-bold text-pokemon-yellow tracking-tight flex items-center gap-2">
           <span>🎖️</span>
           Top 100 Trainers
@@ -90,9 +90,9 @@ export default function HolderLeaderboard({ holders, lastUpdate }: Props) {
         </div>
       </div>
 
-      <div className="bg-pokemon-darker/50 border border-pokemon-blue/20 rounded-xl overflow-hidden">
+      <div className="holo-inner overflow-hidden relative z-10">
         {/* Header */}
-        <div className="grid grid-cols-12 gap-2 px-4 py-3 bg-pokemon-dark/50 border-b border-pokemon-blue/20 text-xs uppercase tracking-wider text-pokemon-lightBlue">
+        <div className="grid grid-cols-12 gap-2 px-4 py-3 bg-pokemon-dark/80 border-b border-pokemon-blue/30 text-xs uppercase tracking-wider text-pokemon-lightBlue">
           <div className="col-span-2">Rank</div>
           <div className="col-span-6">Trainer</div>
           <div className="col-span-4 text-right">Power</div>
@@ -145,13 +145,13 @@ export default function HolderLeaderboard({ holders, lastUpdate }: Props) {
       {/* Footer stats */}
       {holders.length > 0 && (
         <div className="mt-4 grid grid-cols-2 gap-4 text-xs">
-          <div className="bg-pokemon-darker/50 rounded-lg p-3 border border-pokemon-yellow/20">
+          <div className="bg-pokemon-darker/80 rounded-lg p-3 border border-pokemon-yellow/30">
             <div className="text-pokemon-yellow uppercase tracking-wider mb-1">Champion</div>
             <div className="text-white font-medium">
               {formatBalance(holders[0]?.balance || 0)} power
             </div>
           </div>
-          <div className="bg-pokemon-darker/50 rounded-lg p-3 border border-pokemon-blue/20">
+          <div className="bg-pokemon-darker/80 rounded-lg p-3 border border-pokemon-blue/30">
             <div className="text-pokemon-lightBlue uppercase tracking-wider mb-1">Trainers</div>
             <div className="text-white font-medium">
               {holders.length} registered

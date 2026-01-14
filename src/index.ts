@@ -11,10 +11,10 @@ import { tunnelService } from './services/tunnel';
 import { WSEventType, MitosisCompleteEvent, ErrorEvent, CurveUpdateEvent, TokenCreatedEvent } from './types';
 
 /**
- * POKECHAIN Main Orchestrator
- * Coordinates all services and manages the evolution lifecycle
+ * PIKACHUCHAIN Main Orchestrator
+ * Coordinates all services and manages the Pichu → Pikachu → Raichu evolution lifecycle
  */
-class PokechainBot {
+class PikachuChainBot {
   private monitorService: RealtimeMonitorService;
   private snapshotService: SnapshotService;
   private executorService: ExecutorService;
@@ -159,7 +159,7 @@ class PokechainBot {
   public async start(): Promise<void> {
     console.log('');
     console.log('⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡');
-    console.log('🎮 POKECHAIN - Gotta Evolve Em All! 🎮');
+    console.log('🎮 PIKACHUCHAIN - Pichu → Pikachu → Raichu! 🎮');
     console.log('⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡');
     console.log('');
 
@@ -213,7 +213,7 @@ class PokechainBot {
 
       console.log('');
       console.log('⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡');
-      console.log('🚀 POKECHAIN ACTIVE - Watching for evolutions... 🚀');
+      console.log('🚀 PIKACHUCHAIN ACTIVE - Watching for evolutions... 🚀');
       console.log('⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡');
       console.log('');
     } catch (error) {
@@ -345,7 +345,7 @@ class PokechainBot {
    */
   public checkStatus(): void {
     console.log('');
-    console.log('📊 ══ POKECHAIN STATUS ══ 📊');
+    console.log('📊 ══ PIKACHUCHAIN STATUS ══ 📊');
     console.log(`🎮 Running: ${this.isRunning ? 'Yes' : 'No'}`);
     console.log(`👀 Watching: ${this.monitorService.isActive() ? 'Yes' : 'No'}`);
     console.log(`📈 Phase: ${this.monitorService.getCurrentPhase()}`);
@@ -359,7 +359,7 @@ class PokechainBot {
 }
 
 // Main execution
-const bot = new PokechainBot();
+const bot = new PikachuChainBot();
 
 // Handle graceful shutdown
 process.on('SIGINT', async () => {

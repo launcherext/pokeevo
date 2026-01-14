@@ -146,7 +146,7 @@ export default function EvolutionProgress({ progress, marketCap, generation, kil
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-pokemon-darker/50 rounded-xl p-4 border border-pokemon-blue/30">
+        <div className="bg-pokemon-darker/80 rounded-xl p-4 border border-pokemon-blue/30">
           <div className="text-pokemon-lightBlue text-xs uppercase tracking-widest mb-1">
             Market Cap
           </div>
@@ -154,7 +154,7 @@ export default function EvolutionProgress({ progress, marketCap, generation, kil
             ${marketCap.toLocaleString('en-US', { maximumFractionDigits: 0 })}
           </div>
         </div>
-        <div className="bg-pokemon-darker/50 rounded-xl p-4 border border-pokemon-blue/30">
+        <div className="bg-pokemon-darker/80 rounded-xl p-4 border border-pokemon-blue/30">
           <div className="text-pokemon-lightBlue text-xs uppercase tracking-widest mb-1">
             Target Cap
           </div>

@@ -77,8 +77,8 @@ function loadConfig(): Config {
     },
     metadata: {
       baseUri: process.env.METADATA_BASE_URI || 'https://arweave.net/placeholder',
-      namePrefix: process.env.TOKEN_NAME_PREFIX || 'Chain Reaction',
-      symbolPrefix: process.env.TOKEN_SYMBOL_PREFIX || 'CR'
+      namePrefix: process.env.TOKEN_NAME_PREFIX || 'PikachuChain',
+      symbolPrefix: process.env.TOKEN_SYMBOL_PREFIX || 'PIKA'
     },
     monitoring: {
       casualPollInterval: parseInt(process.env.CASUAL_POLL_INTERVAL_MS || '30000'),

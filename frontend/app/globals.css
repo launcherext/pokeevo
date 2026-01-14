@@ -31,7 +31,55 @@
   }
 
   .pokemon-card {
-    @apply bg-pokemon-dark/50 backdrop-blur-sm rounded-xl pokemon-border;
+    @apply rounded-xl;
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(20, 10, 40, 0.95) 0%,
+      rgba(30, 15, 50, 0.9) 50%,
+      rgba(20, 10, 40, 0.95) 100%
+    );
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    overflow: hidden;
+  }
+
+  .pokemon-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    z-index: -1;
+    background: linear-gradient(
+      135deg,
+      #ff6b9d 0%,
+      #c44cff 16%,
+      #6b8cff 33%,
+      #45e5c3 50%,
+      #f0e14a 66%,
+      #ff9f43 83%,
+      #ff6b9d 100%
+    );
+    background-size: 300% 300%;
+    animation: holoShift 8s ease infinite;
+    border-radius: inherit;
+  }
+
+  .pokemon-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 20%,
+      rgba(255, 255, 255, 0.1) 35%,
+      rgba(255, 255, 255, 0.3) 40%,
+      rgba(255, 255, 255, 0.1) 45%,
+      transparent 60%
+    );
+    background-size: 200% 200%;
+    animation: holoShine 6s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: inherit;
   }
 }
 
@@ -152,4 +200,126 @@ html {
 
 .ready-shake {
   animation: readyShake 0.5s ease-in-out infinite;
+}
+
+/* Cosmic Rainbow Sparkles Background */
+@keyframes cosmicSwirl {
+  0% {
+    background-position: 0% 50%, 100% 50%, 50% 0%, 50% 100%;
+  }
+  50% {
+    background-position: 100% 50%, 0% 50%, 50% 100%, 50% 0%;
+  }
+  100% {
+    background-position: 0% 50%, 100% 50%, 50% 0%, 50% 100%;
+  }
+}
+
+.cosmic-sparkles {
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, white, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 200, 0.8), transparent),
+    radial-gradient(2px 2px at 50px 160px, white, transparent),
+    radial-gradient(2px 2px at 90px 40px, rgba(200, 255, 255, 0.8), transparent),
+    radial-gradient(2px 2px at 130px 80px, white, transparent),
+    radial-gradient(2px 2px at 160px 120px, rgba(255, 200, 255, 0.8), transparent),
+    radial-gradient(3px 3px at 200px 60px, white, transparent),
+    radial-gradient(2px 2px at 220px 150px, rgba(255, 255, 200, 0.8), transparent),
+    radial-gradient(2px 2px at 280px 90px, white, transparent),
+    radial-gradient(2px 2px at 320px 180px, rgba(200, 255, 255, 0.8), transparent),
+    radial-gradient(3px 3px at 380px 40px, white, transparent),
+    radial-gradient(2px 2px at 420px 130px, rgba(255, 200, 255, 0.8), transparent),
+    radial-gradient(2px 2px at 480px 70px, white, transparent),
+    radial-gradient(2px 2px at 520px 160px, rgba(255, 255, 200, 0.8), transparent);
+  background-size: 550px 200px;
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Holographic Card Animations */
+@keyframes holoShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes holoShine {
+  0% {
+    background-position: -100% -100%;
+  }
+  50% {
+    background-position: 200% 200%;
+  }
+  100% {
+    background-position: -100% -100%;
+  }
+}
+
+/* Holographic texture overlay */
+.holo-texture {
+  position: relative;
+}
+
+.holo-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.03) 2px,
+      rgba(255, 255, 255, 0.03) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.03) 2px,
+      rgba(255, 255, 255, 0.03) 4px
+    );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Inner card elements with subtle holo effect */
+.holo-inner {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 5, 30, 0.8) 0%,
+    rgba(25, 10, 45, 0.7) 50%,
+    rgba(15, 5, 30, 0.8) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+}
+
+.holo-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 100, 150, 0.05) 0%,
+    rgba(100, 150, 255, 0.05) 50%,
+    rgba(150, 255, 200, 0.05) 100%
+  );
+  border-radius: inherit;
+  pointer-events: none;
 }

@@ -100,7 +100,7 @@ export default function EventLog({ events }: Props) {
         Professor Oak's Journal
       </h2>
 
-      <div className="bg-pokemon-darker/50 border border-pokemon-blue/20 rounded-xl p-4 h-96 overflow-y-auto">
+      <div className="bg-pokemon-darker/80 border border-pokemon-blue/20 rounded-xl p-4 h-96 overflow-y-auto">
         {events.length === 0 ? (
           <div className="text-center text-pokemon-blue/50 py-12 text-sm italic">
             Searching for wild Pokemon in tall grass...

@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'PokeChain - Gotta Evolve Em All!',
-  description: 'Watch Pokemon evolve as tokens reach their bonding curve. A recursive evolution experiment on Solana.',
+  title: 'PikachuChain - Pichu to Pikachu to Raichu!',
+  description: 'Watch Pichu evolve into Pikachu and Raichu as tokens reach their bonding curve. A recursive evolution experiment on Solana.',
   icons: {
     icon: '/logo.png',
   },

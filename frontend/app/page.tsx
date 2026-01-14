@@ -6,6 +6,7 @@ import Image from 'next/image'
 import EvolutionAnimation from '@/components/EvolutionAnimation'
 import HolderLeaderboard from '@/components/HolderLeaderboard'
 import EventLog from '@/components/EventLog'
+import ExplainerSection from '@/components/ExplainerSection'
 import { getPokemonForGeneration, getGlowColor } from '@/lib/pokemon'
 
 interface TokenHolder {
@@ -283,13 +284,22 @@ export default function Home() {
 
   return (
     <main className="min-h-screen text-white">
-      {/* Pokemon World Background */}
+      {/* Cosmic Rainbow Gradient Background */}
       <div
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/pokemon-in-the-wild.png')" }}
+        className="fixed inset-0"
+        style={{
+          background: `
+            radial-gradient(ellipse at 20% 20%, rgba(255, 100, 150, 0.4) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 20%, rgba(100, 200, 255, 0.4) 0%, transparent 50%),
+            radial-gradient(ellipse at 40% 80%, rgba(150, 100, 255, 0.4) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 80%, rgba(100, 255, 200, 0.4) 0%, transparent 50%),
+            radial-gradient(ellipse at 50% 50%, rgba(255, 200, 100, 0.3) 0%, transparent 60%),
+            linear-gradient(135deg, #1a0a2e 0%, #0f0520 25%, #150a25 50%, #0a1020 75%, #1a0a2e 100%)
+          `
+        }}
       />
-      {/* Dark overlay for readability */}
-      <div className="fixed inset-0 bg-black/60" />
+      {/* Animated sparkles overlay */}
+      <div className="fixed inset-0 opacity-30 pointer-events-none cosmic-sparkles" />
 
       {/* Audio Player */}
       <audio
@@ -375,10 +385,10 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
           >
             <Image
-              src="/Pokechain-by-Claude-1-14-2026.png"
-              alt="Pokechain by Claude"
-              width={400}
-              height={80}
+              src="/Pichu-by-Claude-1-14-2026.png"
+              alt="PikachuChain"
+              width={500}
+              height={120}
               priority
             />
           </motion.div>
@@ -581,6 +591,11 @@ export default function Home() {
             />
             <EventLog events={events} />
           </div>
+        </div>
+
+        {/* How It Works Section */}
+        <div className="px-4 pb-12 max-w-6xl mx-auto w-full">
+          <ExplainerSection />
         </div>
 
       </div>
