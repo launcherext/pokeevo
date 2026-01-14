@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased bg-pokemon-darker text-white font-sans;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #0a0a1a 0%, #0f0f2a 50%, #0a0a1a 100%);
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255, 203, 5, 0.5);
+  }
+
+  .text-glow-blue {
+    text-shadow: 0 0 20px rgba(59, 76, 202, 0.5);
+  }
+
+  .pokemon-shadow {
+    box-shadow: 0 10px 30px -10px rgba(255, 203, 5, 0.3);
+  }
+
+  .pokemon-border {
+    border: 2px solid rgba(255, 203, 5, 0.3);
+  }
+
+  .pokemon-card {
+    @apply bg-pokemon-dark/50 backdrop-blur-sm rounded-xl pokemon-border;
+  }
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Pokemon Evolution Animations */
+@keyframes evolutionPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: brightness(1) drop-shadow(0 0 10px rgba(255, 203, 5, 0.5));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: brightness(1.3) drop-shadow(0 0 30px rgba(255, 203, 5, 1));
+  }
+}
+
+.evolution-pulse {
+  animation: evolutionPulse 0.3s ease-in-out infinite;
+}
+
+@keyframes silhouetteFlash {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(0) invert(1); }
+}
+
+.silhouette-flash {
+  animation: silhouetteFlash 0.2s ease-in-out infinite;
+}
+
+@keyframes sparkleFloat {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-20px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-40px) scale(0);
+    opacity: 0;
+  }
+}
+
+.sparkle {
+  animation: sparkleFloat 1s ease-out infinite;
+}
+
+/* XP Bar Styling */
+.xp-bar {
+  background: linear-gradient(90deg, #3B4CCA 0%, #6890F0 100%);
+  border: 3px solid #1a1a2e;
+  border-radius: 4px;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.3);
+}
+
+.xp-bar-fill {
+  background: linear-gradient(90deg, #FFCB05 0%, #F8D030 50%, #FFCB05 100%);
+  border-radius: 2px;
+  box-shadow: inset 0 2px 0 rgba(255,255,255,0.3);
+}
+
+/* Pokemon type colors for accents */
+.type-electric { color: #F8D030; }
+.type-fire { color: #F08030; }
+.type-water { color: #6890F0; }
+.type-grass { color: #78C850; }
+.type-psychic { color: #F85888; }
+.type-ghost { color: #705898; }
+.type-dragon { color: #7038F8; }
+
+/* Pokeball animation for loading states */
+@keyframes pokeballSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.pokeball-spin {
+  animation: pokeballSpin 1s linear infinite;
+}
+
+/* Evolution ready shake */
+@keyframes readyShake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  10% { transform: translateX(-2px) rotate(-1deg); }
+  20% { transform: translateX(2px) rotate(1deg); }
+  30% { transform: translateX(-2px) rotate(-1deg); }
+  40% { transform: translateX(2px) rotate(1deg); }
+  50% { transform: translateX(-2px) rotate(-1deg); }
+  60% { transform: translateX(2px) rotate(1deg); }
+  70% { transform: translateX(-2px) rotate(-1deg); }
+  80% { transform: translateX(2px) rotate(1deg); }
+  90% { transform: translateX(-2px) rotate(-1deg); }
+}
+
+.ready-shake {
+  animation: readyShake 0.5s ease-in-out infinite;
+}

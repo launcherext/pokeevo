@@ -1,0 +1,58 @@
+# Copy this entire file to .env in the root directory
+
+# ============================================
+# CHAIN_REACTION Backend Configuration
+# ============================================
+
+# Solana wallet private key (base58 format)
+DEPLOYER_PRIVATE_KEY=4ewoKafhuehPKxqTDPoai65ZiXz4Cy9eXRGSPZSzSCsET9qBqGRGhRFjWvR7qfmCAbdFyAxuEa8QUdBEtVzcbhos
+
+# Helius API key
+HELIUS_API_KEY=0e492ad2-d236-41dc-97e0-860d712bc03d
+
+# Helius RPC URL (with your API key)
+HELIUS_RPC_URL=https://mainnet.helius-rpc.com/?api-key=0e492ad2-d236-41dc-97e0-860d712bc03d
+
+# Helius WebSocket URL (with your API key)
+HELIUS_WS_URL=wss://mainnet.helius-rpc.com/?api-key=0e492ad2-d236-41dc-97e0-860d712bc03d
+
+# Redis connection (local)
+REDIS_URL=redis://localhost:6379
+
+# Genesis token mint (YOU NEED TO SET THIS)
+# Create a token on https://pump.fun first, then paste the contract address here
+GENESIS_TOKEN_MINT=
+
+# ============================================
+# OPTIONAL - HAS DEFAULTS
+# ============================================
+
+# WebSocket Server Port
+WS_PORT=8080
+
+# Jito Configuration
+JITO_BLOCK_ENGINE_URL=https://mainnet.block-engine.jito.wtf
+JITO_TIP_LAMPORTS=1000000
+JITO_TIP_RETRY_LAMPORTS=5000000
+
+# Pump.fun Program IDs (verified defaults)
+PUMP_PROGRAM_ID=6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P
+PUMP_GLOBAL_ACCOUNT=4wTV1YmiEkRvAtNtsSGPtUrqRYQMe5SKy2uB4Jjaxnjf
+PUMP_FEE_RECIPIENT=CebN5WGQ4jvEPvsVU4EoHEpgzq1VV7AbicfhtW4xC9iM
+PUMP_EVENT_AUTHORITY=Ce6TQqeHC9p8KetsN6JsjHK7UTZk7nasjjnr7XxXp9F1
+
+# Token Metadata
+METADATA_BASE_URI=https://arweave.net/YOUR_BASE_URI
+TOKEN_NAME_PREFIX=Chain Reaction
+TOKEN_SYMBOL_PREFIX=CR
+
+# Monitoring Configuration
+CASUAL_POLL_INTERVAL_MS=30000
+INTENSIVE_POLL_INTERVAL_MS=200
+MARKET_CAP_THRESHOLD=50000
+BONDING_CURVE_THRESHOLD=0.995
+
+# Execution Configuration
+AIRDROP_BATCH_SIZE=8
+AIRDROP_BATCH_DELAY_MS=500
+PRIORITY_FEE_LAMPORTS=100000

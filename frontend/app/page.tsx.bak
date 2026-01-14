@@ -1,0 +1,298 @@
+'use client'
+
+import { useState, useEffect, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
+import BondingProgress from '@/components/BondingProgress'
+import TokenInfo from '@/components/TokenInfo'
+import MitosisAnimation from '@/components/MitosisAnimation'
+import StatsPanel from '@/components/StatsPanel'
+import EventLog from '@/components/EventLog'
+import ExplainerSection from '@/components/ExplainerSection'
+import HowToParticipate from '@/components/HowToParticipate'
+
+interface WSEvent {
+  event: string
+  progress?: number
+  marketCap?: number
+  mint?: string
+  currentMint?: string
+  oldMint?: string
+  newMint?: string
+  signature?: string
+  generation?: number
+  error?: string
+  timestamp: number
+}
+
+interface InitialStateEvent {
+  event: 'initial_state'
+  mint: string
+  generation: number
+  timestamp: number
+}
+
+export default function Home() {
+  const [ws, setWs] = useState<WebSocket | null>(null)
+  const [connected, setConnected] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [marketCap, setMarketCap] = useState(0)
+  const [currentMint, setCurrentMint] = useState('')
+  const [generation, setGeneration] = useState(1) // Start at 1, not 0
+  const [killZone, setKillZone] = useState(false)
+  const [mitosisActive, setMitosisActive] = useState(false)
+  const [events, setEvents] = useState<WSEvent[]>([])
+  const [lastUpdate, setLastUpdate] = useState(Date.now())
+
+  const addEvent = useCallback((event: WSEvent) => {
+    setEvents(prev => [event, ...prev].slice(0, 50)) // Keep last 50 events
+  }, [])
+
+  useEffect(() => {
+    const wsUrl = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8080'
+    console.log('Connecting to WebSocket:', wsUrl)
+
+    let websocket: WebSocket | null = new WebSocket(wsUrl)
+
+    websocket.onopen = () => {
+      console.log('WebSocket connected')
+      setConnected(true)
+    }
+
+    websocket.onmessage = (event) => {
+      try {
+        const data: WSEvent = JSON.parse(event.data)
+        console.log('WebSocket message:', data)
+
+        setLastUpdate(Date.now())
+
+        switch (data.event) {
+          case 'curve_update':
+            if (data.progress !== undefined) {
+              setProgress(data.progress)
+              setMarketCap(data.marketCap || 0)
+              setCurrentMint(data.mint || '')
+              
+              // Enter kill zone at 99%+
+              if (data.progress >= 0.99) {
+                setKillZone(true)
+              }
+            }
+            addEvent(data)
+            break
+
+          case 'mitosis_imminent':
+            setKillZone(true)
+            setMitosisActive(true)
+            addEvent(data)
+            break
+
+          case 'mitosis_complete':
+            setMitosisActive(true)
+            if (data.newMint) {
+              setCurrentMint(data.newMint)
+            }
+            if (data.generation) {
+              setGeneration(data.generation)
+            }
+            // Reset after animation
+            setTimeout(() => {
+              setMitosisActive(false)
+              setKillZone(false)
+              setProgress(0)
+            }, 3000)
+            addEvent(data)
+            break
+
+          case 'error':
+            console.error('Bot error:', data.error)
+            addEvent(data)
+            break
+
+          case 'heartbeat':
+            // Silent heartbeat
+            break
+
+          case 'initial_state':
+            // Handle initial state with generation
+            const initData = data as unknown as InitialStateEvent
+            if (initData.mint) {
+              setCurrentMint(initData.mint)
+            }
+            if (initData.generation !== undefined) {
+              setGeneration(initData.generation)
+            }
+            break
+
+          default:
+            console.log('Unknown event:', data.event)
+        }
+      } catch (error) {
+        console.error('Failed to parse WebSocket message:', error)
+      }
+    }
+
+    websocket.onerror = (error) => {
+      console.error('WebSocket error:', error)
+      setConnected(false)
+    }
+
+    websocket.onclose = () => {
+      console.log('WebSocket disconnected')
+      setConnected(false)
+      
+      // Attempt to reconnect after 5 seconds (don't reload page)
+      setTimeout(() => {
+        if (!websocket) return // Safety check
+        
+        console.log('Attempting to reconnect...')
+        const reconnectWs = new WebSocket(wsUrl)
+        
+        // Store message handlers before reconnecting
+        const originalOnMessage = websocket.onmessage
+        const originalOnError = websocket.onerror
+        const originalOnClose = websocket.onclose
+        
+        reconnectWs.onopen = () => {
+          console.log('WebSocket reconnected')
+          setConnected(true)
+          setWs(reconnectWs)
+          websocket = reconnectWs
+        }
+        
+        reconnectWs.onmessage = originalOnMessage
+        reconnectWs.onerror = originalOnError
+        reconnectWs.onclose = originalOnClose
+      }, 5000)
+    }
+
+    setWs(websocket)
+
+    return () => {
+      if (websocket && (websocket.readyState === WebSocket.OPEN || websocket.readyState === WebSocket.CONNECTING)) {
+        websocket.close()
+      }
+    }
+  }, []) // Empty dependency array - only run once on mount
+
+  return (
+    <main className="min-h-screen bg-black crt-scanlines">
+      {/* CRT Screen overlay effects */}
+      <div className="fixed inset-0 pointer-events-none">
+        {/* Terminal grid background */}
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'repeating-linear-gradient(0deg, #00ff00 0px, transparent 1px, transparent 2px, #00ff00 3px), repeating-linear-gradient(90deg, #00ff00 0px, transparent 1px, transparent 2px, #00ff00 3px)', backgroundSize: '30px 30px' }} />
+        
+        {/* Warning zone flash */}
+        {killZone && (
+          <motion.div
+            className="absolute inset-0 bg-terminal-amber-500/10"
+            animate={{
+              opacity: [0.05, 0.15, 0.05],
+            }}
+            transition={{
+              duration: 0.3,
+              repeat: Infinity,
+            }}
+          />
+        )}
+      </div>
+
+      {/* Main content - CRT screen container */}
+      <div className="relative z-10 container mx-auto px-6 py-8">
+        {/* Header */}
+        <motion.header
+          className="text-center mb-12 terminal-border p-6 bg-terminal-screen/80 crt-screen backdrop-blur-sm"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          {/* Terminal prompt style logo */}
+          <div className="flex justify-center mb-6">
+            <Image 
+              src="/chain-logo.jpg" 
+              alt="Chain Reaction Logo" 
+              width={200} 
+              height={200}
+              className="rounded border-2 border-terminal-green-500 shadow-lg shadow-terminal-green-500/30"
+            />
+          </div>
+          
+          {/* Terminal-style header */}
+          <div className="font-mono">
+            <div className="text-terminal-green-500 mb-2 text-sm">
+              &gt; SYSTEM_ONLINE
+            </div>
+            <h1 className={`text-6xl font-black mb-4 tracking-wider ${killZone ? 'glitch-text terminal-glow-amber' : 'text-terminal-green-500 terminal-glow'}`}>
+              CHAIN_REACTION
+            </h1>
+            <p className="text-terminal-green-400 text-lg font-mono">
+              &gt; One token triggers the next. Infinite momentum.
+            </p>
+          </div>
+          
+          {/* Terminal-style connection status */}
+          <div className="mt-6 flex items-center justify-center gap-3 font-mono text-sm">
+            <span className="text-terminal-green-500">[</span>
+            <span className={`${connected ? 'text-terminal-green-500 terminal-glow' : 'text-terminal-amber-500 terminal-glow-amber'}`}>
+              {connected ? 'ONLINE' : 'OFFLINE'}
+            </span>
+            <span className="text-terminal-green-500">]</span>
+          </div>
+        </motion.header>
+
+        {/* Mitosis animation overlay */}
+        <AnimatePresence>
+          {mitosisActive && (
+            <MitosisAnimation generation={generation} />
+          )}
+        </AnimatePresence>
+
+        {/* Explainer Section */}
+        <ExplainerSection />
+
+        {/* How to Participate */}
+        <HowToParticipate currentMint={currentMint} />
+
+        {/* Main dashboard grid - Terminal windows */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          {/* Left column: Progress and info */}
+          <div className="lg:col-span-2 space-y-6">
+            <BondingProgress 
+              progress={progress} 
+              marketCap={marketCap}
+              killZone={killZone}
+            />
+            <TokenInfo 
+              mint={currentMint}
+              generation={generation}
+            />
+          </div>
+
+          {/* Right column: Stats */}
+          <div className="space-y-6">
+            <StatsPanel 
+              generation={generation}
+              progress={progress}
+              marketCap={marketCap}
+              lastUpdate={lastUpdate}
+            />
+          </div>
+        </div>
+
+        {/* Event log */}
+        <EventLog events={events} />
+      </div>
+
+      {/* Terminal footer */}
+      <footer className="relative z-10 text-center py-8 text-terminal-green-600 text-sm font-mono border-t border-terminal-green-900">
+        <p className="terminal-glow">&gt; CHAIN_REACTION v1.0.0 | Recursive Token Experiment</p>
+        <p className="mt-2 text-terminal-green-700">
+          &gt; A viral DeFi system powered by atomic mitosis
+        </p>
+        <p className="mt-3 text-terminal-green-800 text-xs">
+          [SYSTEM_STATUS: OPERATIONAL] [GEN_{generation}]
+        </p>
+      </footer>
+    </main>
+  )
+}
